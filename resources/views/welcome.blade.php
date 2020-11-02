@@ -13,22 +13,9 @@
     <link href="css/material-kit.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
-<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
-      </script>
-<script >
-    function getMessage() {
-            $.ajax({
-               type:'GET',
-               url:'cuatroEsquinas',
-               data:'_token = <?php echo csrf_token() ?>',
-               success:function(data) {
-                alert(data);
-                  $("#msg").html(data);
-               }
-            });}
-</script>
 
-<body class="index-page sidebar-collapse" onload="getMessage()">
+
+<body class="index-page sidebar-collapse" onload="constructor()">
     <div class="main main-raised">
         <div class="section section-basic">
             <div class="container">
@@ -41,7 +28,7 @@
                         <h3><small>Parte 1) Dibujar la geolocalización de una casa.</small></h3>
                         <button onclick="getMessage();">click me</button>
                         <div class="container center">
-                            <canvas id="myCanvas"  style="border:1px solid #AAA; background-color: #0266db;">
+                            <canvas id="practica1"  style="border:1px solid #AAA; background-color: #0266db;">
 
                             </canvas>   
                         </div>
@@ -64,14 +51,32 @@
 
 
 
-
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+      </script>
+<script >
+    function getMessage() {
+            $.ajax({
+               type:'GET',
+               url:'cuatroEsquinas',
+               data:'_token = <?php echo csrf_token() ?>',
+               success:function(data) {
+                alert(data);
+                  $("#msg").html(data);
+               }
+            });}
+</script>
 
 <script type="text/javascript">
     function constructor() {
-        const canvas =document.getElementById('myCanvas');
+        const canvas =document.getElementById('practica1');
         const ctx = canvas.getContext('2d');
         canvas.width = (window.innerWidth)*2/3;
-        canvas.height = (window.innerWidth)/2;
+        canvas.height = (window.innerWidth)*1/3;
+        //     ctx.moveTo(30*x, 0);
+        //     ctx.lineTo(30*x, 500);
+        //     ctx.strokeStyle = '#CCC';
+        //     ctx.stroke();  
+        
     }
 
 

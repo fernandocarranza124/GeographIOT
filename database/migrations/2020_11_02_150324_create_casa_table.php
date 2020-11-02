@@ -15,8 +15,14 @@ class CreateCasaTable extends Migration
     {
         Schema::create('casa', function (Blueprint $table) {
             $table->id();
-            $table->decimal('longitud',10,7);
-            $table->decimal('latitud',10,7);
+            $table->decimal('esq1_longitud',10,7);
+            $table->decimal('esq1_latitud',10,7);
+            $table->decimal('esq2_longitud',10,7);
+            $table->decimal('esq2_latitud',10,7);
+            $table->decimal('esq3_longitud',10,7);
+            $table->decimal('esq3_latitud',10,7);
+            $table->decimal('esq4_longitud',10,7);
+            $table->decimal('esq4_latitud',10,7);
             $table->timestamps();
         });
     }
