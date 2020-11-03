@@ -11,7 +11,9 @@ class Casa extends Model
     protected $table="casa";
     
     protected $fillable = [
-        'latitud',
-        'longitud',
+        'esq1_longitud','esq1_latitud',
+        'esq2_longitud','esq2_latitud',
+        'esq3_longitud','esq3_latitud',
+        'esq4_longitud','esq4_latitud',
     ];
 }

@@ -20,4 +20,7 @@ Route::get('/', function () {
 
 Route::get('cuatroEsquinas', 'App\Http\Controllers\graficador@cuatroEsquinas');
 
+Route::get('insertaDatos', 'App\Http\Controllers\graficador@insertaDatos');
+Route::post('guardaDatos', 'App\Http\Controllers\graficador@guardaDatos');
+
 
