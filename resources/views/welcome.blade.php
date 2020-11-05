@@ -82,51 +82,62 @@
     function getMessage() {
             $.ajax({
                type:'GET',
-               url:'cuatroEsquinas',
+               url:'parteUno',
                data:'_token = <?php echo csrf_token() ?>',
                success:function(data) {
-                  graficarCuatroEsquinas(data['esq1_latitud'], data['esq1_longitud'],  data['esq2_latitud'], data['esq2_longitud'],  data['esq3_latitud'], data['esq3_longitud'],  data['esq4_latitud'], data['esq4_longitud'], )
+                  graficarCuatroEsquinas(data);
                }
 
             });}
+
+
+
+function linea(x1,y1,x2,y2,color,ctx) {
+    
+          ctx.moveTo(latitudVariacion(x1),longitudVariacion(y1));
+          ctx.lineTo(latitudVariacion(x2),longitudVariacion(y2));
+          return ctx;
+          
+          
+
+}
 function latitudVariacion(numero) {
-    return ((numero*100000)%100);
+    return ((numero*100000)%10);
 }
 function longitudVariacion(numero) {
-    return ((numero*10000)%100)
+    return ((numero*10000)%10)
 }
-
-    function graficarCuatroEsquinas(latUno, lonUno,  latDos, lonDos,  latTres, lonTres, latCuatro, lonCuatro) {
+    function graficarCuatroEsquinas(data) {
         var canvas = document.getElementById('practica1');
         var context = canvas.getContext('2d');
 
-        context.scale(1,1);
-              // context.translate(-30,-30);
+        
+        var json_Casa=data['casa'];
+        var json_Colonia=data['colonia'];
 
-          context.beginPath();
-          var x1=latitudVariacion(latUno);
-          var y1=longitudVariacion(lonUno);
-          var x2=latitudVariacion(latDos);
-          var y2=longitudVariacion(lonDos)+y1;
-          var x3=latitudVariacion(latTres)-x2;
-          var y3=longitudVariacion(lonTres);
-          var x4=latitudVariacion(latCuatro);
-          var y4=longitudVariacion(lonCuatro);
+        // Graficar casa
+        
+        for (var i = 0, lon = json_Casa.length; i < lon; i++) 
+        {
+            try{
+                console.log("si")
+                context=linea(json_Casa[i]['latitud'],json_Casa[i]['longitud'],json_Casa[i+1]['latitud'],json_Casa[i+1]['longitud'],'#F0F',context);    
+            }catch(error){
+                context=linea(json_Casa[i]['latitud'],json_Casa[i]['longitud'],json_Casa[0]['latitud'],json_Casa[0]['longitud'],'#F0F',context);    
+            }
+        }
+        for (var i = 0, lon = json_Colonia.length; i < lon; i++) 
+        {
+            try{
+                context=linea(json_Colonia[i]['latitud'],json_Colonia[i]['longitud'],json_Colonia[i+1]['latitud'],json_Colonia[i+1]['longitud'],'#00F',context);    
+            }catch(error){
+                context=linea(json_Colonia[i]['latitud'],json_Colonia[i]['longitud'],json_Colonia[0]['latitud'],json_Colonia[0]['longitud'],'#00F',context);    
+            }
+        }
+        context.stroke();
+        context.scale(3,2);
+        context.translate(50,50);
 
-          context.moveTo(x1,y1);
-          context.lineTo(x2,y2);
-
-          context.moveTo(x2,y2);
-          context.lineTo(x3,y3);
-          
-console.log("x1: "+x1+"   x2: "+x2+"   x3: "+x3+"   x4: "+x4);
-console.log("y1: "+y1+"   y2: "+y2+"   y3: "+y3+"   y4: "+y4);
-          // context.moveTo(latTres*2, lonTres*2);
-          // context.lineTo(latCuatro*2,lonCuatro*2);
-          // context.moveTo(latCuatro*2, lonCuatro*2);
-          // context.lineTo(latCuatro*2,lonCuatro*2);
-          context.stroke();
-          // console.log("ya");
     }
 </script>
 

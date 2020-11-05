@@ -16,11 +16,15 @@ use App\Http\Controllers\graficador;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('index');
 
-Route::get('cuatroEsquinas', 'App\Http\Controllers\graficador@cuatroEsquinas');
+Route::get('parteUno', 'App\Http\Controllers\graficador@parteUno');
 
 Route::get('insertaDatos', 'App\Http\Controllers\graficador@insertaDatos');
-Route::post('guardaDatos', 'App\Http\Controllers\graficador@guardaDatos');
+Route::get('reiniciaBDCasa', 'App\Http\Controllers\graficador@reiniciaBDCasa');
+Route::post('storeDatosCasa', 'App\Http\Controllers\graficador@storeDatosCasa');
+
+Route::get('reiniciaBDColonia', 'App\Http\Controllers\graficador@reiniciaBDColonia');
+Route::post('storeDatosColonia', 'App\Http\Controllers\graficador@storeDatosColonia');
 
 

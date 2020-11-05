@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCasaTable extends Migration
+class CreateColoniaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateCasaTable extends Migration
      */
     public function up()
     {
-        Schema::create('casa', function (Blueprint $table) {
+        Schema::create('colonia', function (Blueprint $table) {
             $table->id();
             $table->decimal('latitud',10,7);
             $table->decimal('longitud',10,7);
-            
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateCasaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('casa');
+        Schema::dropIfExists('colonia');
     }
 }

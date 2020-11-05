@@ -4,36 +4,57 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Casa;
+use App\Models\Colonia;
 use App\Http\Controllers\Controller;
 class graficador extends Controller
 {
-    public function cuatroEsquinas()
+    public function parteUno()
     {
-    	$coord=Casa::latest()->first();
-    	return $coord;
+    	$coords=collect(['casa' => Casa::all(), 'colonia' => Colonia::all()]);
+    	// dd($coords);
+    	return $coords;
     }
     public function insertaDatos()
     {	
-
-    	return view('formulario');
+    	$coordsCasa=Casa::all();
+    	$coordsColonia=Colonia::all();
+    	return view('formulario', compact('coordsCasa','coordsColonia'));
     }
-    public function guardaDatos(Request $request)
+    public function storeDatosCasa(Request $request)
     {
 
     	$coord=new Casa();
-    	$coord->esq1_latitud=($request->latUno);
-    	$coord->esq1_longitud=($request->lonUno);
-
-    	$coord->esq2_latitud=($request->latDos);
-    	$coord->esq2_longitud=($request->lonDos);
-
-    	$coord->esq3_latitud=($request->latTres);
-    	$coord->esq3_longitud=($request->lonTres);
-
-    	$coord->esq4_latitud=($request->latCuatro);
-    	$coord->esq4_longitud=($request->lonCuatro);
+    	$coord->longitud=abs($request->longitud);
+    	$coord->latitud=abs($request->latitud);
 
     	$coord->save();
-    	return redirect('/');
+    	return redirect('/insertaDatos');
+    }
+    public function reiniciaBDCasa()
+    {
+    	Casa::truncate();
+    	return redirect('/insertaDatos');
+    }
+
+
+    public function storeDatosColonia(Request $request)
+    {
+
+    	$coord=new Colonia();
+    	$coord->longitud=abs($request->longitud);
+    	$coord->latitud=abs($request->latitud);
+
+    	$coord->save();
+    	return redirect('/insertaDatos');
+    }
+    public function reiniciaBDColonia()
+    {
+    	Colonia::truncate();
+    	return redirect('/insertaDatos');
+    }
+
+    public function Raspberry()
+    {
+    	
     }
 }
