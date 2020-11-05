@@ -96,16 +96,22 @@ function linea(x1,y1,x2,y2,color,ctx) {
     
           ctx.moveTo(latitudVariacion(x1),longitudVariacion(y1));
           ctx.lineTo(latitudVariacion(x2),longitudVariacion(y2));
+        
           return ctx;
           
           
 
 }
 function latitudVariacion(numero) {
-    return ((numero*100000)%10);
+    // return ((numero*100000)%100)*2;
+    
+    return ((numero*1))*1;
+
 }
 function longitudVariacion(numero) {
-    return ((numero*10000)%10)
+    // console.log("longitud :"+numero);
+    return ((numero*1))*1;
+    // return ((numero*10000)%100)*2;
 }
     function graficarCuatroEsquinas(data) {
         var canvas = document.getElementById('practica1');
@@ -134,9 +140,11 @@ function longitudVariacion(numero) {
                 context=linea(json_Colonia[i]['latitud'],json_Colonia[i]['longitud'],json_Colonia[0]['latitud'],json_Colonia[0]['longitud'],'#00F',context);    
             }
         }
+
         context.stroke();
-        context.scale(3,2);
-        context.translate(50,50);
+        
+        
+        
 
     }
 </script>
@@ -147,6 +155,8 @@ function longitudVariacion(numero) {
         const ctx = canvas.getContext('2d');
         canvas.width = (window.innerWidth)*5/6;
         canvas.height = (window.innerWidth)*1/3;
+        console.log("width"+canvas.width);
+        console.log("height"+canvas.height);
         //     ctx.moveTo(30*x, 0);
         //     ctx.lineTo(30*x, 500);
         //     ctx.strokeStyle = '#CCC';

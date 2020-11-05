@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Casa;
 use App\Models\Colonia;
+use App\Models\tiemporeal;
 use App\Http\Controllers\Controller;
 class graficador extends Controller
 {
@@ -53,8 +54,12 @@ class graficador extends Controller
     	return redirect('/insertaDatos');
     }
 
-    public function Raspberry()
+    public function RaspberryStore($latitud,$longitud)
     {
-    	
+    	$coordenada=new tiemporeal();
+    	$coordenada->latitud=abs($latitud);
+    	$coordenada->longitud=abs($longitud);
+    	$coordenada->save();
+    	return "ok";
     }
 }

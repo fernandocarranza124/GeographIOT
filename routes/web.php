@@ -28,3 +28,6 @@ Route::get('reiniciaBDColonia', 'App\Http\Controllers\graficador@reiniciaBDColon
 Route::post('storeDatosColonia', 'App\Http\Controllers\graficador@storeDatosColonia');
 
 
+Route::get('RaspberryStore/{latitud}/{longitud}', 'App\Http\Controllers\graficador@RaspberryStore');
+
+
