@@ -27,7 +27,10 @@ Route::post('storeDatosCasa', 'App\Http\Controllers\graficador@storeDatosCasa');
 Route::get('reiniciaBDColonia', 'App\Http\Controllers\graficador@reiniciaBDColonia');
 Route::post('storeDatosColonia', 'App\Http\Controllers\graficador@storeDatosColonia');
 
-
+Route::get('consultadatos', 'App\Http\Controllers\graficador@consultadatos');
 Route::get('RaspberryStore/{latitud}/{longitud}', 'App\Http\Controllers\graficador@RaspberryStore');
 
+
+Route::get('ultimaCoord', 'App\Http\Controllers\graficador@ultimaCoord');
+Route::get('reiniciarTiempoReal', 'App\Http\Controllers\graficador@reiniciarTiempoReal');
 

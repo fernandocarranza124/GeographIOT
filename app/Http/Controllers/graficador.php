@@ -62,4 +62,18 @@ class graficador extends Controller
     	$coordenada->save();
     	return "ok";
     }
+    public function consultadatos(){
+    	$rows=tiemporeal::all();
+    	dd($rows);
+    }
+    public function reiniciarTiempoReal()
+    {
+    	tiemporeal::truncate();
+    	return redirect()->route('index');
+    }
+    public function ultimaCoord()
+    {
+    	$coordsCasa=tiemporeal::all();
+    	return $coordsCasa;
+    }
 }

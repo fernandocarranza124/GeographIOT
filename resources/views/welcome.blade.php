@@ -60,9 +60,18 @@
                     </div>
                     <div class="title">
                         <h3><small>Parte 2) Obtener la posición del Raspberry Pi</small></h3>
-                        <div id = 'msg'>This message will be replaced using Ajax. 
-         Click the button to replace the message.</div>
-      <button >Click</button>
+                        <div class="center">
+                            <canvas id="practica2"  style="border:1px solid #AAA; ">
+
+                            </canvas>   
+                            </div>  
+                            <a href="reiniciarTiempoReal" title="Reiniciar">
+                                <button class="btn btn-danger" onclick="">Reiniciar coordenadas</button>
+                            </a>
+                            <button class="btn btn-warning" onclick="">Pausar/Continuar graficacion</button>
+                            <button class="btn btn-info" onclick="tiemporeal();">Graficar en tiempo real</button>
+                        
+                        
                     </div>
                 </div>
             </div>
@@ -71,13 +80,13 @@
     </div>
 
 
-<p id="XA">5</p>
-<p id="YA">5</p>
+<p id="XA"></p>
+<p id="YA"></p>
 
 
 
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
-      </script>
+    </script>
 <script >
     function getMessage() {
             $.ajax({
@@ -85,44 +94,30 @@
                url:'parteUno',
                data:'_token = <?php echo csrf_token() ?>',
                success:function(data) {
-                  graficarCuatroEsquinas(data);
+                  graficarParteUno(data);
                }
 
             });}
 
 
 
-function linea(x1,y1,x2,y2,color,ctx) {
-    
+    function linea(x1,y1,x2,y2,color,ctx) {
           ctx.moveTo(latitudVariacion(x1),longitudVariacion(y1));
           ctx.lineTo(latitudVariacion(x2),longitudVariacion(y2));
-        
           return ctx;
-          
-          
-
-}
-function latitudVariacion(numero) {
-    // return ((numero*100000)%100)*2;
-    
-    return ((numero*1))*1;
-
-}
-function longitudVariacion(numero) {
-    // console.log("longitud :"+numero);
-    return ((numero*1))*1;
-    // return ((numero*10000)%100)*2;
-}
-    function graficarCuatroEsquinas(data) {
+    }
+    function latitudVariacion(numero) {
+        return ((numero*1))*1;
+    }
+    function longitudVariacion(numero) {
+        return ((numero*1))*1;
+    }
+    function graficarParteUno(data) {
         var canvas = document.getElementById('practica1');
         var context = canvas.getContext('2d');
-
-        
         var json_Casa=data['casa'];
         var json_Colonia=data['colonia'];
-
         // Graficar casa
-        
         for (var i = 0, lon = json_Casa.length; i < lon; i++) 
         {
             try{
@@ -140,42 +135,89 @@ function longitudVariacion(numero) {
                 context=linea(json_Colonia[i]['latitud'],json_Colonia[i]['longitud'],json_Colonia[0]['latitud'],json_Colonia[0]['longitud'],'#00F',context);    
             }
         }
-
         context.stroke();
-        
-        
-        
-
     }
-</script>
+    </script>
 
 <script type="text/javascript">
     function constructor() {
-        const canvas =document.getElementById('practica1');
-        const ctx = canvas.getContext('2d');
+        var canvas =document.getElementById('practica1');
+        var ctx = canvas.getContext('2d');
         canvas.width = (window.innerWidth)*5/6;
         canvas.height = (window.innerWidth)*1/3;
         console.log("width"+canvas.width);
-        console.log("height"+canvas.height);
-        //     ctx.moveTo(30*x, 0);
-        //     ctx.lineTo(30*x, 500);
-        //     ctx.strokeStyle = '#CCC';
-        //     ctx.stroke();  
+        console.log("height"+canvas.height);   
+        canvas =document.getElementById('practica2');
+        ctx = canvas.getContext('2d');
+        canvas.width = (window.innerWidth)*5/6;
+        canvas.height = (window.innerWidth)*1/3;
+        console.log("width"+canvas.width);
+        console.log("height"+canvas.height);   
+    }
+    </script>
+{{-- ////////////// Parte dos //////////////////////////////--}}
+<script >
+    function tiemporeal() {
+            $.ajax({
+               type:'GET',
+               url:'ultimaCoord',
+               data:'_token = <?php echo csrf_token() ?>',
+               success:function(data) {
+                  graficarParteDos(data);
+               }
+
+            });}
+
+
+
+    function lineaPartedos(x1,y1,x2,y2,color,ctx) {
         
+          ctx.moveTo(latitudVariacion(x1),longitudVariacion(y1));
+          ctx.lineTo(latitudVariacion(x2),longitudVariacion(y2));
+          console.log("x1: "+latitudVariacion(x1)+"    . X2: "+latitudVariacion(x2));
+        console.log("y1: "+longitudVariacion(y1)+"    . y2: "+longitudVariacion(y2));
+          return ctx;
     }
-
-
-
-    function draw() {
-
+    function latitudVariacion(numero) {
+        return ((numero*10000)%100)*1;
     }
-
-    function success(position){
-
+    function longitudVariacion(numero) {
+        return ((numero*100000)%100)*1;
     }
+    function graficarParteDos(data) {
+        var canvas = document.getElementById('practica2');
+        var context = canvas.getContext('2d');
+        var xAnterior = document.getElementById('XA').innerHTML;
+        var yAnterior = document.getElementById('YA').innerHTML;
+        // Graficar casa
+        // try{
+
+        //     context=lineaPartedos(xAnterior,yAnterior,data['latitud'], data['longitud'],"00FF00",context);
+        //     context.stroke()
+        //     console.log("graficado");
+        // }catch(error){
+            
+        //     console.log(error);
+        // }
+        // 
+        // 
+        for (var i = 0, lon = data.length; i < lon; i++) 
+        {
+            try{
+                console.log("si")
+                context=linea(data[i]['latitud'],data[i]['longitud'],data[i+1]['latitud'],data[i+1]['longitud'],'#F0F',context);    
+            }catch(error){
+                context=linea(data[i]['latitud'],data[i]['longitud'],data[0]['latitud'],data[0]['longitud'],'#F0F',context);    
+            }
+        }
+        context.scale(3,1);
+        context.stroke();
+
+        document.getElementById('XA').innerHTML=data['latitud'];
+        document.getElementById('YA').innerHTML=data['longitud'];
+    }
+    </script>
 
 
-
-</script>
 </body>
 </html>
