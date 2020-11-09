@@ -64,7 +64,7 @@ class graficador extends Controller
     }
     public function consultadatos(){
     	$rows=Casa::all();
-    	return [1, 2, 3];
+    	return $rows;
     }
     public function reiniciarTiempoReal()
     {
