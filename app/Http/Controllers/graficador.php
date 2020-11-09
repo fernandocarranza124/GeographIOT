@@ -73,7 +73,7 @@ class graficador extends Controller
     }
     public function ultimaCoord()
     {
-    	$coordsCasa=tiemporeal::all();
+    	$coordsCasa=Casa::all();
     	return $coordsCasa;
     }
 }

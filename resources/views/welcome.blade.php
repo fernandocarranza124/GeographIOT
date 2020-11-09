@@ -62,7 +62,7 @@
                     <div class="title">
                         <h3><small>Parte 2) Obtener la posición del Raspberry Pi</small></h3>
                         <div class="center">
-                            <canvas id="practica2"  style="border:1px solid #AAA; ">
+                            <canvas id="practica2"  style="border:1px solid #AAA;">
 
                             </canvas>   
                             </div>  
@@ -70,7 +70,7 @@
                                 <button class="btn btn-danger" onclick="">Reiniciar coordenadas</button>
                             </a>
                             <button class="btn btn-warning" onclick="">Pausar/Continuar graficacion</button>
-                            <button class="btn btn-info" onclick="tiemporeal();">Graficar en tiempo real</button>
+                            <button class="btn btn-info" onclick="parteDos();">Graficar en tiempo real</button>
                         
                         
                     </div>
@@ -117,9 +117,9 @@
     function graficarParteUno(data) {
         var canvas = document.getElementById('practica1');
         var context = canvas.getContext('2d');
+
         context.translate(0,0);
-        context.scale(6,5);
-        
+        context.scale(12,5);
         context.beginPath();
 
         var json_Casa=data['casa'];
@@ -128,7 +128,7 @@
         for (var i = 0, lon = json_Casa.length; i < lon; i++) 
         {
             try{
-                console.log("si")
+                
                 context=linea(json_Casa[i]['latitud'],json_Casa[i]['longitud'],json_Casa[i+1]['latitud'],json_Casa[i+1]['longitud'],'#F0F',context);    
             }catch(error){
                 context=linea(json_Casa[i]['latitud'],json_Casa[i]['longitud'],json_Casa[0]['latitud'],json_Casa[0]['longitud'],'#F0F',context);    
@@ -144,10 +144,7 @@
         }
         
         context.stroke();
-
         context.save();
-        var canvas = document.getElementById('practica1');
-        var context = canvas.getContext('2d');
         
     }
     </script>
@@ -156,21 +153,19 @@
     function constructor() {
         var canvas =document.getElementById('practica1');
         var ctx = canvas.getContext('2d');
-        canvas.width = (window.innerWidth)*1/3;
+        canvas.width = (window.innerWidth)*2/3;
         canvas.height = (window.innerWidth)*1/3;
-        console.log("width"+canvas.width);
-        console.log("height"+canvas.height);   
+           
         canvas =document.getElementById('practica2');
         ctx = canvas.getContext('2d');
-        canvas.width = (window.innerWidth)*1/3;
+        canvas.width = (window.innerWidth)*2/3;
         canvas.height = (window.innerWidth)*1/3;
-        console.log("width"+canvas.width);
-        console.log("height"+canvas.height);   
+          
     }
     </script>
 {{-- ////////////// Parte dos //////////////////////////////--}}
 <script >
-    function tiemporeal() {
+    function parteDos() {
             $.ajax({
                type:'GET',
                url:'ultimaCoord',
@@ -196,35 +191,29 @@
         return ((numero*10000)%100);
     }
     function longitudVariacion(numero) {
-        console.log(((numero*100000)%1000)/10);
         return ((numero*100000)%1000)/10;
     }
     function graficarParteDos(data) {
         var canvas = document.getElementById('practica2');
         var context = canvas.getContext('2d');
-        var xAnterior = document.getElementById('XA').innerHTML;
-        var yAnterior = document.getElementById('YA').innerHTML;
-        // Graficar casa
-        // try{
+        context.translate(-10800,-9600);
+        // -1700,-1500
+        // 29,29
+        context.save();
+        context.beginPath(); //define path
+        context.scale(180,180);
 
-        //     context=lineaPartedos(xAnterior,yAnterior,data['latitud'], data['longitud'],"00FF00",context);
-        //     context.stroke()
-        //     console.log("graficado");
-        // }catch(error){
-            
-        //     console.log(error);
-        // }
-        // 
-        // 
         for (var i = 0, lon = data.length; i < lon; i++) 
         {
             try{
                 console.log("si")
-                context=linea(data[i]['latitud'],data[i]['longitud'],data[i+1]['latitud'],data[i+1]['longitud'],'#F0F',context);    
+                context=linea(data[i]['longitud'],data[i]['latitud'],data[i+1]['longitud'],data[i+1]['latitud'],'#F0F',context);    
+console.log(data[i]['longitud']+"   .  "+data[i]['latitud']);
             }catch(error){
-                context=linea(data[i]['latitud'],data[i]['longitud'],data[0]['latitud'],data[0]['longitud'],'#F0F',context);    
+                context=linea(data[i]['longitud'],data[i]['latitud'],data[0]['longitud'],data[0]['latitud'],'#F0F',context);    
             }
         }
+        context.restore(); //restore context without transformation
         context.stroke();
 
         document.getElementById('XA').innerHTML=data['latitud'];
