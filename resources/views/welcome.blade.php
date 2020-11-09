@@ -107,6 +107,7 @@
           return ctx;
     }
     function latitudVariacion(numero) {
+
         return ((numero*1))*1;
     }
     function longitudVariacion(numero) {
@@ -130,11 +131,12 @@
         for (var i = 0, lon = json_Colonia.length; i < lon; i++) 
         {
             try{
-                context=linea(json_Colonia[i]['latitud'],json_Colonia[i]['longitud'],json_Colonia[i+1]['latitud'],json_Colonia[i+1]['longitud'],'#00F',context);    
+                context=linea(json_Colonia[i]['longitud'],json_Colonia[i]['latitud'],json_Colonia[i+1]['longitud'],json_Colonia[i+1]['latitud'],'#00F',context);    
             }catch(error){
-                context=linea(json_Colonia[i]['latitud'],json_Colonia[i]['longitud'],json_Colonia[0]['latitud'],json_Colonia[0]['longitud'],'#00F',context);    
+                // context=linea(json_Colonia[i]['latitud'],json_Colonia[i]['longitud'],json_Colonia[0]['latitud'],json_Colonia[0]['longitud'],'#00F',context);    
             }
         }
+        context.scale(3,3);
         context.stroke();
     }
     </script>
@@ -143,13 +145,13 @@
     function constructor() {
         var canvas =document.getElementById('practica1');
         var ctx = canvas.getContext('2d');
-        canvas.width = (window.innerWidth)*5/6;
+        canvas.width = (window.innerWidth)*1/3;
         canvas.height = (window.innerWidth)*1/3;
         console.log("width"+canvas.width);
         console.log("height"+canvas.height);   
         canvas =document.getElementById('practica2');
         ctx = canvas.getContext('2d');
-        canvas.width = (window.innerWidth)*5/6;
+        canvas.width = (window.innerWidth)*1/3;
         canvas.height = (window.innerWidth)*1/3;
         console.log("width"+canvas.width);
         console.log("height"+canvas.height);   
@@ -179,10 +181,12 @@
           return ctx;
     }
     function latitudVariacion(numero) {
-        return ((numero*10000)%100)*1;
+        // alert(numero);
+        return ((numero*10000)%100);
     }
     function longitudVariacion(numero) {
-        return ((numero*100000)%100)*1;
+        console.log(((numero*100000)%1000)/10);
+        return ((numero*100000)%1000)/10;
     }
     function graficarParteDos(data) {
         var canvas = document.getElementById('practica2');
@@ -210,7 +214,6 @@
                 context=linea(data[i]['latitud'],data[i]['longitud'],data[0]['latitud'],data[0]['longitud'],'#F0F',context);    
             }
         }
-        context.scale(3,1);
         context.stroke();
 
         document.getElementById('XA').innerHTML=data['latitud'];
