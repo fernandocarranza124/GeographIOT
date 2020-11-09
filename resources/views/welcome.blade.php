@@ -196,7 +196,7 @@
     function graficarParteDos(data) {
         var canvas = document.getElementById('practica2');
         var context = canvas.getContext('2d');
-        context.translate(-10800,-9600);
+        context.translate(-10600,-9650);
         // -1700,-1500
         // 29,29
         context.save();

@@ -63,8 +63,8 @@ class graficador extends Controller
     	return "ok";
     }
     public function consultadatos(){
-    	$rows=tiemporeal::all();
-    	dd($rows);
+    	$rows=Casa::all();
+    	return [1, 2, 3];
     }
     public function reiniciarTiempoReal()
     {
