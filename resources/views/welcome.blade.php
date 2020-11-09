@@ -51,12 +51,13 @@
                     <div class="title">
                         <h3><small>Parte 1) Dibujar la geolocalización de una casa.</small></h3>
                         
-                        <div class="center">
-                            <canvas id="practica1"  style="border:1px solid #AAA; ">
+                        <div class="container" style="   ">
+                            <canvas id="practica1"  style="border:1px solid #AAA;transform-origin: 50% 50%;  transform: rotate(180deg)">
 
                             </canvas>   
-                            <button class="btn btn-info" onclick="getMessage()">Graficar</button>
+                            <button class="btn btn-info" onclick="getMessage()">Graficar</button>    
                         </div>
+                        
                     </div>
                     <div class="title">
                         <h3><small>Parte 2) Obtener la posición del Raspberry Pi</small></h3>
@@ -116,6 +117,11 @@
     function graficarParteUno(data) {
         var canvas = document.getElementById('practica1');
         var context = canvas.getContext('2d');
+        context.translate(0,0);
+        context.scale(6,5);
+        
+        context.beginPath();
+
         var json_Casa=data['casa'];
         var json_Colonia=data['colonia'];
         // Graficar casa
@@ -136,8 +142,13 @@
                 // context=linea(json_Colonia[i]['latitud'],json_Colonia[i]['longitud'],json_Colonia[0]['latitud'],json_Colonia[0]['longitud'],'#00F',context);    
             }
         }
-        context.scale(3,3);
+        
         context.stroke();
+
+        context.save();
+        var canvas = document.getElementById('practica1');
+        var context = canvas.getContext('2d');
+        
     }
     </script>
 
