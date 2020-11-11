@@ -63,7 +63,7 @@ class graficador extends Controller
     	return "ok";
     }
     public function consultadatos(){
-    	$rows=Casa::all();
+    	$rows=tiemporeal::all();
     	return $rows;
     }
     public function reiniciarTiempoReal()
@@ -75,5 +75,10 @@ class graficador extends Controller
     {
     	$coordsCasa=Casa::all();
     	return $coordsCasa;
+    }
+    public function parteDos()
+    {
+        $coords=collect(['casa' => Casa::all(), 'raspberry' => tiemporeal::latest()->first()]);
+        return $coords;
     }
 }

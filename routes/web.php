@@ -32,5 +32,6 @@ Route::get('RaspberryStore/{latitud}/{longitud}', 'App\Http\Controllers\graficad
 
 
 Route::get('ultimaCoord', 'App\Http\Controllers\graficador@ultimaCoord');
+Route::get('parteDos', 'App\Http\Controllers\graficador@parteDos');
 Route::get('reiniciarTiempoReal', 'App\Http\Controllers\graficador@reiniciarTiempoReal');
 
